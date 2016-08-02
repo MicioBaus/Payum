@@ -49,7 +49,11 @@ class PaypalRestGatewayFactory extends GatewayFactory
                 }
 
                 $credential = new OAuthTokenCredential($config['client_id'], $config['client_secret']);
-                return new ApiContext($credential);
+                
+                $apiContext = new ApiContext($credential);
+                $apiContext->setConfig( parse_ini_file($config['config_path']) );
+                
+                return $apiContext;
             };
         }
     }
